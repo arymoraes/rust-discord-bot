@@ -8,7 +8,7 @@ pub fn soma(message_content: &str, keyword: &str) -> String {
             Err(e) => {
                 println!("Some user used an invalid number, {}", e);
                 continue;
-            },
+            }
         }
     }
 
@@ -18,7 +18,8 @@ pub fn soma(message_content: &str, keyword: &str) -> String {
 }
 
 fn parse_input<'a>(input: &'a str, keyword: &'a str) -> Vec<String> {
-    let new_input = input.replace(keyword, "")
+    let new_input = input
+        .replace(keyword, "")
         .replace(",", ".")
         .split(" ")
         .map(|s| s.to_string())

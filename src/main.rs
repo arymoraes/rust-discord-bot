@@ -24,8 +24,10 @@ impl EventHandler for Handler {
 async fn main() {
     let token = env::var("TOKEN").expect("Expected a token in the environment");
 
-    let mut client =
-        Client::builder(&token).event_handler(Handler).await.expect("Err creating client");
+    let mut client = Client::builder(&token)
+        .event_handler(Handler)
+        .await
+        .expect("Err creating client");
 
     if let Err(why) = client.start().await {
         println!("Client error: {:?}", why);
