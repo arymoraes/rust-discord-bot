@@ -1,9 +1,10 @@
 use serenity::{client::Context, model::channel::Message};
 
-use self::palindromo::palindromo;
+use self::{palindromo::palindromo, cat::meow};
 
 pub mod soma;
 pub mod palindromo;
+pub mod cat;
 
 pub async fn boilimax(ctx: Context, msg: Message) {
     if msg.content == "boi" {
@@ -31,6 +32,26 @@ pub async fn boilimax(ctx: Context, msg: Message) {
             .await
         {
             println!("Error sending message: {:?}", why);
+        }
+    }
+
+    if msg.content.contains("!meow") {
+        let cat_pic = meow().await;
+        match cat_pic {
+            Ok(mut pic) => {
+                // remove the "" from the string
+                pic = pic.replace("\"", "");
+                if let Err(why) = msg
+                    .channel_id
+                    .say(&ctx.http, pic)
+                    .await
+                {
+                    println!("Error sending message: {:?}", why);
+                }
+            }
+            Err(why) => {
+                println!("Error sending message: {:?}", why);
+            }
         }
     }
 }
